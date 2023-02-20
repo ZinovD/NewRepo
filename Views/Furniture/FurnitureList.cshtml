@@ -1,0 +1,226 @@
+﻿@model FurnitureListViewModel
+
+
+<form method="post">
+    <style>
+        .container {
+            width: 99%;
+            padding-right: 10px;
+            padding-left: 10px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+        .col-sm-1 {
+            -ms-flex: 0 0 2%;
+            flex: 0 0 2%;
+            max-width: 2%;
+        }
+        .border {
+            border-width:2px;
+            border-color:white;
+        }
+        .number {
+          width:12em;
+        }
+        th {
+        color: white;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-info col-md-12" asp-controller="Furniture" asp-action="Create" asp-route-error="">Добавить</a><br/><br/><br/>
+
+                <button class="btn btn-success col-md-12" type="submit">Фильтрация</button><br><br>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide">Номер мебели</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <tbody>
+                            @{
+                                <tr>
+                                    <td scope="row" style="background-color:white">
+                                        <input class="col-md-12" style="color:black" type="number" min="0" name="furnitureID" id="furnitureID">
+                                    </td>
+                                </tr>  
+                            }
+                            <tbody>
+                        </table>
+                     </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide1">Название</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide1">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-bordered">
+                            <tbody class="form-check">
+                                <tr>
+                                    <td scope="row" style="background-color:white">
+                                        <input style="color:black" class="form-check-input col-md-12" type="text" name="name" id="name">
+                                    </td>
+                                </tr>
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide2">Акции</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide2">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-info table-bordered">
+                            <tbody class="form-check">
+                                @{
+                                    foreach (var el in  ViewBag.Stock)
+                                    {
+                                        <tr>
+                                            <td scope="row">
+                                                <input class="form-check-input" type="checkbox" name="stockFilter" value="@el.StockName" id="@el.StockName">
+                                                <label class="form-check-label" for="@el.StockName">@el.StockName</label>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide3">Вид мебели</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide3">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-info table-bordered">
+                            <tbody class="form-check">
+                                @{
+                                    foreach (var el in  ViewBag.Kinds)
+                                    {
+                                        <tr>
+                                            <td scope="row">
+                                                <input class="form-check-input" type="checkbox" name="kindFilter" value="@el.Kind" id="@el.Kind">
+                                                <label class="form-check-label" for="@el.Kind">@el.Kind</label>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse" data-target="#hide4">Тип мебели</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide4">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-bordered">
+                            <tbody class="form-check">
+                                @{
+                                    foreach (var el in ViewBag.Types)
+                                    {
+                                        <tr>
+                                            <td scope="row">
+                                                <input class="form-check-input" type="checkbox" name="typeFilter" value="@el.Type" id="@el.Type">
+                                                <label class="form-check-label" for="@el.Type">@el.Type</label>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse" data-target="#hide5">Основной цвет</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide5">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-bordered">
+                            <tbody class="form-check">
+                                @{
+                                    foreach (var el in ViewBag.Colors)
+                                    {
+                                        <tr>
+                                            <td scope="row">
+                                                <input class="form-check-input col-md-2" type="checkbox" value="@el.ColorName" name="colorFilter"  id="@el.ColorName ">
+                                                <label class="form-check-label col-md-7" for="@el.ColorName">@el.ColorName</label>
+                                                <input name="color" type="color" style="text-align: center; font-weight: bolder;" value="@el.Color" class="col-md-3" disabled>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse" data-target="#hide6">Цена</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide6">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-bordered">
+                            <tbody class="form-check">
+                                <tr>
+                                    <td scope="row">
+                                        От <input type="number" class="number" min="0" value="0" name="price1"/> Руб.<br/><br/>
+                                        До <input type="number" class="number" min="0" value="0" name="price2" /> Руб.
+                                    </td>
+                                </tr>
+                                <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                @{
+                    foreach (var el in Model.allFurniture)
+                    {
+                         if (el.Number==0)
+                         {
+                             <div class="col-md-6 alert alert-danger border">
+                                
+                                <div class="col-md-7">
+                                    
+                                    <label>@el.Name</label>
+                                    <br>
+                                    <h5>Вид: @el.FurnitureKind.Kind</h5>
+                                    <h5>Тип: @el.FurnitureType.Type</h5>
+                                    <h5>Цвет: @el.FurnitureColor.ColorName</h5>
+                                    <h5>Количество: @el.Number</h5>
+                                </div>
+                                <div class="col-md-5">
+                                    <a class="btn btn-info col-md-12" asp-route-furnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="FurniturePage">Выбрать</a>
+                                    <a class="btn btn-info col-md-12" asp-route-furnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="Edit" asp-route-error="">Изменить</a>
+                                    <a class="btn btn-danger col-md-12" asp-route-furnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="Delete">Удалить</a>
+                                </div>
+                            </div>
+                         }
+                         else
+                         {
+                            <div class="col-md-6 alert alert-info border">
+                                <div class="col-md-7">
+                                    <label>@el.Name</label>
+                                    <br>
+                                    <h5>Вид: @el.FurnitureKind.Kind</h5>
+                                    <h5>Тип: @el.FurnitureType.Type</h5>
+                                    <h5>Цвет: @el.FurnitureColor.ColorName</h5>
+                                    <h5>Количество: @el.Number</h5>
+                                </div>
+                                <div class="col-md-5">
+                                    <a class="btn btn-info col-md-12" asp-route-furnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="FurniturePage">Выбрать</a>
+                                    <a class="btn btn-info col-md-12" asp-route-furnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="Edit" asp-route-error="">Изменить</a>
+                                    <a class="btn btn-danger col-md-12" asp-route-furnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="Delete">Удалить</a>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>

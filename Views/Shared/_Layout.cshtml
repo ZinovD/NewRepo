@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FurnitureStore</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://fonts.gstatic.com/" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CNunito:300,300i,400,400i,600,600i,700,700i%7CPoppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    body{
+        font-family:'Open Sans',sans-serif;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Навигация</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" asp-area="" asp-controller="HomePage" asp-action="Index">FurnitureStore</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>&nbsp&nbsp&nbsp</li>
+                    <li>
+                        <a class="nav-link text-dark" asp-controller="Furniture" asp-action="List">Мебель</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-controller="Stock" asp-action="List">Акции</a>
+                    </li>
+                    <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ShopCart" asp-action="Index">Корзина</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-route-UserName="@User.Identity.Name" asp-controller="Users" asp-action="Profile">Профиль</a>
+                        </li>
+                         <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="ClientOrderList">Заказы</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Администратор") || User.IsInRole("Модератор")))
+                        {
+                             <li>
+                                 <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrderList">Все заказы</a>
+                             </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">Редактор<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Администратор"))){
+                                    <li><a asp-controller="Users" asp-action="">Список пользователей</a></li>
+                                    <li><a asp-controller="Roles" asp-action="Index">Управление ролями</a></li>
+                                    <li class="divider"></li>
+                                    }
+                                    <li><a asp-controller="Kind" asp-action="KindList">Виды</a></li>
+                                    <li><a asp-controller="Type" asp-action="TypeList">Типы</a></li>
+                                    <li><a asp-controller="Color" asp-action="ColorList">Цвета</a></li>
+                                    <li class="divider"></li>
+                                    <li><a asp-controller="Furniture" asp-action="FurnitureList">Мебель</a></li>
+                                    <li class="divider"></li>
+                                    <li><a asp-controller="Stock" asp-action="Index">Акции</a></li>
+                                    <li class="divider"></li>
+                                    <li><a asp-controller="HomePage" asp-action="List">Главная страница</a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="search" name="search" class="form-control" placeholder="Поиск">
+                    </div>
+                    <button asp-controller="Furniture" asp-action="Search" class="btn btn-default">Отправить</button>
+                </form>
+                <ul class="nav navbar-nav d-flex flex-row bd-highlight">
+                    @if (User.Identity.IsAuthenticated == false)
+                    {
+                        <li>
+                            <a class="nav-link p-2 bd-highlight text-dark" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+                        </li>
+                        <li>
+                            <a class="nav-link p-2 bd-highlight text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                        </li>  
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Exit">Выход</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

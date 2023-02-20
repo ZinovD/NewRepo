@@ -1,0 +1,18 @@
+﻿@using FurnitureStore.Data.Models
+@model Stock
+
+<form method="post" action="/Stock/Edit" enctype="multipart/form-data">
+     <h3><strong>@Model.StockName</strong></h3>
+     <div class="row">
+         <div class="col-md-7">
+             <label align="justify">@Model.LongDesc</label>
+             <h4><strong>Сроки проведения акции</strong></h4>
+             <h4>Начало: @Model.StockStartTime</h4>
+             <h4>Конец: @Model.StockEndTime</h4>
+         </div>
+         <div class="col-md-5">
+             <img src="@Model.Photo" class="img-thumbnail" />
+         </div>
+     </div>
+    <script src="~/js/site.js"></script>
+</form>

@@ -1,0 +1,28 @@
+﻿@model FurnitureKind
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Изменение вида мебели</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Изображение:</dt>
+                <dd>
+                    <img class="img-thumbnail" src="@Model.Photo" width="350" height="300" id="image">
+                    <input type="file" name="pic" onchange="readURL(this,'#image');" />
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Название вида:</dt>
+                <dd>
+                    <input class="form-control" type="text" asp-for="Kind" />
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>

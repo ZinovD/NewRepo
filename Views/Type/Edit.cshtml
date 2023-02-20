@@ -1,0 +1,22 @@
+﻿@model FurnitureType
+<form method="post" asp-action="Update" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Изменение типа мебели</h4>
+        </div>
+        <div class="modal-body">
+            <input type="number" asp-for="TypeID" style="visibility:hidden" />
+            <dl class="dl-horizontal">
+                <dt>Название типа:</dt>
+                <dd>
+                    <input class="form-control" type="text" asp-for="Type" />
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>

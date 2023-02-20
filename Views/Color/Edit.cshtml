@@ -1,0 +1,28 @@
+﻿@model FurnitureColor
+
+<form method="post" asp-action="Update" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Изменение цвета</h4>
+        </div>
+        <input type="number" asp-for="ColorID" style="visibility:hidden" />
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Название цвета:</dt>
+                <dd>
+                    <input class="form-control" type="text" asp-for="ColorName" />
+                </dd>
+                <br/>
+                <dt>Цвет:</dt>
+                <dd>
+                    <input type="color" asp-for="Color">
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>

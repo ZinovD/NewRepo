@@ -1,0 +1,46 @@
+﻿@model Comments 
+
+<script src="~/js/site.js"></script>
+
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Добавление комментария</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Комментарий:</dt>
+                <dd>
+                    <input class="col-md-11" type="text" asp-for="Comment" />
+                </dd>
+                <br/>
+                <dt>Фото:</dt>
+                <dd>
+                    <div class="row"> 
+                        <div class="col-md-11">
+                            <div class="col-md-4">
+                                <img class="img-thumbnail" width="350" height="300" id="image" />
+                                <input type="file" name="pic" onchange="readURL2(this,'#image');">
+                            </div>
+                            <div class="col-md-4">
+                                <img class="img-thumbnail" width="350" height="300" id="image1" />
+                                <input type="file" name="pic2" onchange="readURL2(this,'#image1');">
+                            </div>
+                            <div class="col-md-4">
+                                <img class="img-thumbnail" width="350" height="300" id="image2" />
+                                <input type="file" name="pic3" onchange="readURL2(this,'#image2');">
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                <input hidden type="number" value="@ViewBag.Comment" name="FurnitureID">
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>
+

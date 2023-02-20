@@ -1,0 +1,48 @@
+﻿@model StockListViewModel
+
+
+ <style>
+     .border 
+     {
+       border-width:2px;
+       border-color:white;
+       color:white;
+       font-weight:bold;
+       background:#DC143C;
+     }
+ </style>
+<form >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-info col-md-12" asp-controller="Stock" asp-action="Create" asp-route-error="">Добавить</a><br/><br/><br/>
+            </div>
+            <div class="col-md-10">
+                @foreach(var el in Model.allStock)
+                {
+                    <div class="col-md-3 alert alert-info border">
+                       <div class="row">
+                            <div class="col-md-12">
+                                <h3>@el.StockName</h3><br>
+                                <h5>Скидка: @el.StockSize %</h5>
+                                <h5>Дата начала акции: @el.StockStartTime</h5>
+                                <h5>Акция действует до:  @el.StockEndTime</h5>
+                             </div>                
+                       </div>
+                       <div class="row">
+                            <div class="col-md-12">
+                                @{if(el.StockName!="Нет")
+                                    {
+                                        <a class="btn btn-info col-lg-12" asp-route-StockID="@el.StockID" asp-controller="Stock" asp-action="StockPage">Выбрать</a>
+                                        <a class="btn btn-info col-lg-12" asp-route-id="@el.StockID" asp-route-error=" " asp-controller="Stock" asp-action="Edit">Изменить</a>
+                                        <a class="btn btn-info col-lg-12" asp-route-id="@el.StockID" asp-controller="Stock" asp-action="Delete">Удалить</a>
+                                    }
+                                }
+                            </div>
+                       </div>          
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</form>

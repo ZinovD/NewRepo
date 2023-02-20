@@ -1,0 +1,28 @@
+﻿<script src="~/js/site.js"></script>
+
+<form method="post" action="/Kind/Create" enctype="multipart/form-data">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Добавление нового вида мебели</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Изображение:</dt>
+                <dd>
+                    <img class="img-thumbnail" width="350" height="300" id="image">
+                    <input type="file" name="pic" onchange="readURL(this,'#image');" />
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Название вида:</dt>
+                <dd>
+                    <input class="form-control" type="text" name="Kind" /><br />
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <input class="btn btn-success" type="submit" value="Готово" />
+            <button class="btn btn-secondary" asp-controller="Kind" asp-action="KindList" >Закрыть</button>
+        </div>
+    </div>
+</form>

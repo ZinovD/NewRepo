@@ -1,0 +1,20 @@
+﻿<form method="post" asp-action="Update" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Добавление типа мебели</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Название типа:</dt>
+                <dd>
+                    <input class="form-control" type="text" name="Type" /><br />
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <button class="btn btn-secondary" asp-controller="Type" asp-action="TypeList">Закрыть</button>
+        </div>
+    </div>
+</form>

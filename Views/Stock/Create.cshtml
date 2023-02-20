@@ -1,0 +1,59 @@
+﻿@model Stock
+ 
+<h5 style="color:red;">@ViewData["Error"]</h5>
+ <h2>Добавление акции</h2>
+ <form method="post" action="/Stock/Create" enctype="multipart/form-data">
+     <table class="table">
+        <tbody>
+            <tr>
+                <img class="img-thumbnail" width="350" height="300" id="image" />
+                <input type="file" name="pic" onchange="readURL(this,'#image');" />
+            </tr>
+            <tr>
+                <th scope="row">Название</th>
+                <td>
+                    <input type="text" asp-for="StockName" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Размер скидки</th>
+                <td>
+                    <input type="number" min="1" max="99" step="1" asp-for="StockSize" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Короткое описание</th>
+                <td>
+                    <input type="text" asp-for="ShortDesc" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Описание</th>
+                <td>
+                    <input type="text" asp-for="LongDesc" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Дата начала акции</th>
+                <td>
+                    <input min="@DateTime.Today" type="date" asp-for="StockStartTime" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Дата окончания акции</th>
+                <td>
+                    <input min="@DateTime.Today" type="date" asp-for="StockEndTime" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">На главную</th>
+                <td>
+                    <input type="checkbox" asp-for="IsFavorite" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input class="btn btn-success" type="submit" value="Добавить"><br><br>
+    <script src="~/js/site.js"></script>
+</form>

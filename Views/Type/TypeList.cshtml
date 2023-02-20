@@ -1,0 +1,35 @@
+﻿<body>
+    <style>
+        .colortext {
+            background-color: #ffe; /* Цвет фона */
+            color: Black; /* Цвет текста */
+            border: none;
+            width: 6em;
+            text-align: center;
+        }
+    </style>
+    <h3>Типы мебели</h3>
+    <table class="table table-hover">
+        @{
+            foreach (var el in Model)
+            {
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="text" name="type" style="text-align: center; font-weight: bolder;  font-size:medium" value="@el.Type" class="form-control col-lg-12" readonly>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary col-lg-12" asp-route-typeID="@el.TypeID" asp-controller="Type" asp-action="Edit">Изменить</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger col-lg-12" asp-route-typeID="@el.TypeID" asp-controller="Type" asp-action="Delete">Удалить</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <a class="btn btn-info col-lg-12" asp-controller="Type" asp-action="CreateList">Добавить</a>
+</body>
+
+

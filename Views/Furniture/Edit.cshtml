@@ -1,0 +1,112 @@
+﻿@model Furniture
+<script src="~/js/site.js"></script>
+
+<h3>@ViewBag.Text</h3>
+<form method="post"  enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <table>
+        <tr>
+            <td>
+                <img class="img-thumbnail" width="350" height="300" src="@Model.Photo1" id="image" />
+                <input type="file" name="pict1" onchange="readURL(this,'#image');" />
+            </td>
+            <td>
+                <img class="img-thumbnail" width="350" height="300" src="@Model.Photo2" id="image1" />
+                <input type="file" name="pic2" onchange="readURL(this,'#image1');" />
+            </td>
+            <td>
+                <img class="img-thumbnail" width="350" height="300" src="@Model.Photo3" id="image2" />
+                <input type="file" name="pic3" onchange="readURL(this,'#image2');" />
+            </td>
+        </tr>
+    </table>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">ID</th>
+                <td>
+                    <input disabled type="number" value="@Model.FurnitureID" asp-for-furID="@Model.FurnitureID"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Вид</th>
+                <td>
+                    <select asp-for="KindID" asp-items="ViewBag.Kinds"></select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Тип</th>
+                <td>
+                    <select asp-for="TypeID" asp-items="ViewBag.Types"></select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Цвет</th>
+                <td>
+                    <select type="color" asp-for="ColorID" asp-items="ViewBag.Colors"></select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Количество</th>
+                <td>
+                    <input type="number" asp-for="Number" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Материал</th>
+                <td>
+                    <input type="text" asp-for="Material" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Акция</th>
+                <td>
+                    <select asp-for="StockID" asp-items="@ViewBag.Stock"></select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Название</th>
+                <td>
+                    <input type="text" asp-for="Name" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Высота</th>
+                <td>
+                    <input asp-for="Height" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Длинна</th>
+                <td>
+                    <input asp-for="Length" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Ширина</th>
+                <td>
+                    <input asp-for="Width" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Цена</th>
+                <td>
+                    <input asp-for="Price" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Описание</th>
+                <td>
+                    <textarea asp-for="LongDesc" style="resize: vertical; width: 500px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Добавить на главную</th>
+                <td>
+                    <input type="checkbox" asp-for="isFavorite">
+                </td>
+            </tr>
+        </tbody>
+    </table><br>
+    <button class="btn btn-success" type="submit">Сохранить</button><br><br>
+</form>

@@ -1,0 +1,54 @@
+﻿@model Order
+<body>
+    <h4>Номер заказа: @Model.OrderID</h4>
+    <h4>ФИО: @Model.Surname @Model.Name @Model.MiddleName</h4>
+    <h4>Адрес получения заказа: @Model.Address</h4>
+    <h4>Дата заказа: @Model.OrderTime</h4>
+    @Html.HiddenFor(p=>p.OrderID)
+    @{
+        if (Model.Status)
+        {
+            <h4>Статус заказа: Завершен</h4>
+        }
+        else
+        {
+            <h4>Статус заказа: Ожидается доставка</h4>
+        }
+    }
+    <table class="col-md-12 table table-bordered">
+        <thead>
+                <tr>
+                    <th scope="col" class="col-md-1">#</th>
+                    <th scope="col" class="col-md-2">Код</th>
+                    <th scope="col" class="col-md-3">Наименование товара</th>
+                    <th scope="col" class="col-md-2" >Цена</th>
+                    <th scope="col" class="col-md-2">Скидка</th>
+                    <th scope="col" class="col-md-2"> Сумма</th>
+                </tr>
+       </thead>
+       <tbody>
+                @{
+                    int i = 1;
+                    double price = 0;
+                    foreach(var el in Model.OrderDetail)
+                    {
+                        <tr>
+                            <th scope="row" class="col-md-1">@i</th>
+                            <td class="col-md-2">@el.FurnitureID</td>
+                            <td class="col-md-3">@el.Furniture.Name</td>
+                            <td class="col-md-2">@el.Price</td>
+                            <td class="col-md-2">@el.Furniture.Stock.StockSize</td>
+                            <td class="col-md-2">@el.Furniture.StockPrice</td>
+                        </tr>
+                        i++;
+                        price = price + @el.Furniture.StockPrice;
+                    }
+                }
+                <tr>
+                    <td colspan="6" class="col-md-12">Итоговая сумма к оплате: @price ₽</td>
+                </tr>
+        </tbody>
+     </table>
+</body>
+
+       

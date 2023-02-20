@@ -1,0 +1,58 @@
+﻿@using FurnitureStore.ViewModels
+@model HomePageListViewModel
+
+<style>
+        .container {
+            width: 85%;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .border {
+            border-width:2px;
+            border-color:white;
+        }
+</style>
+<form asp-controller="HomePage" asp-action="FavoritePage">
+    <div class="row">
+        <div class="col-md-2">
+            <table class="col-md-11 ">
+                <tr>
+                    <td>
+                        <label>Главная страница</label>
+                   </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5><select class="col-md-12" asp-items="@ViewBag.HomePages" name="id"></select></h5>
+                   </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br/>
+                        <button type="submit" class="btn btn-info" asp-controller="HomePage" asp-action="FavoritePage">Сохранить</button>
+                   </td> 
+                </tr>
+            </table>  
+        </div>
+        <div class="col-md-8">
+        @{
+            foreach (var el in Model.allHomePages)
+            {
+                <din class="alert alert-info col-md-3 border">
+                    <h4>@el.Name</h4>
+                    @if(el.HomePageID!=1)
+                    {
+                        <a class="btn btn-info" asp-controller="HomePage" asp-route-error="" asp-action="Edit" asp-route-id="@el.HomePageID">Изменить</a>
+                        <a class="btn btn-danger" asp-controller="HomePage" asp-action="Delete" asp-route-id="@el.HomePageID">Удалить</a>
+                    }
+                    
+                    <br/>
+                </din>  
+            }
+        }
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-primary col-md-12" asp-controller="HomePage" asp-route-error="" asp-action="Create" >Добавить</a>
+        </div>
+    </div>
+</form>

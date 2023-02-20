@@ -1,0 +1,46 @@
+﻿@model FurnitureStore.ViewModels.EditUserViewModel
+    <div>
+        @{
+            if(Model.Avatar==null)
+            {
+                <img class="col-md-3" src="~/users/Avatar.png" style="max-height:20em"/>
+            }
+            else
+            {
+                <img class="col-md-3" src="@Model.Avatar" style="max-height:20em"/>
+            }
+        }
+
+        <div class="col-md-9">
+            <table class="table table-bordered">
+                <thead class="tehead-dark">
+                    <tr>
+                        <th colspan="2">
+                            @Model.Email 
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="col-md-3" scope="row">Фамилия:</th>
+                        <td class="col-md-9">@Model.SurName</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3" scope="row">Имя:</th>
+                        <td class="col-md-9">@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3" scope="row">Отчество:</th>
+                        <td class="col-md-9">@Model.MiddleName</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3" scope="row">Адрес:</th>
+                        <td class="col-md-9">@Model.Address</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-sm btn-primary" asp-controller="Users" asp-action="UserEdit" asp-route-id="@Model.Id">Редактировать</a>
+            <a class="btn btn-sm btn-primary" asp-controller="Users" asp-action="ChangeUserPassword" asp-route-id="@Model.Id" asp-route-i="1">Сменить пароль</a>
+        </div>
+    </div>
+   

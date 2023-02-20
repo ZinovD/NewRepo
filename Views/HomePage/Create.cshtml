@@ -1,0 +1,214 @@
+﻿@using FurnitureStore.Data.Models
+@model HomePage
+ <script src="~/js/site.js"></script>
+ <style>
+    .border {
+            border-width:4px;
+            border-color:white;
+ }
+ </style>
+
+<h5 style="color:red;">@ViewData["Error"]</h5>
+<h2>Добавление главной страницы</h2>
+
+<form method="post"  enctype="multipart/form-data">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     
+    <br>
+    <h4  scope="row">Название &nbsp &nbsp<input asp-for="Name" type="text" />
+    <span asp-validation-for="Name"></span> </h4>   
+    <br/>
+    <a data-toggle="collapse" aria-expanded="true" data-target="#hide1">
+        <h3><strong>Блок изображений<b class="caret"></b></strong></h3>
+    </a>
+    <div id="hide1" class="panel-collapse collapse row">
+        <table class="table">
+            <tr>
+                <th scope="row">Включить</th>
+                <td>
+                   <input type="checkbox" asp-for="ImageBlock" />
+                </td>
+            </tr>
+            <tr>
+                <td class="alert alert-info border">
+                    <div align="center">
+                        <img  class="img-thumbnail" width="1920" height="600"  id="image" />
+                    </div>
+                    <input type="file" name="t1" onchange="readURL3(this,'#image');" />
+                    <h>&nbsp</h>
+                    <h5><strong>Описание</strong></h5>
+                    <h>&nbsp</h>
+                    <input class="col-md-12" asp-for="Title_1"  type="text" />
+                    <span asp-validation-for="Title_1"></span>
+                </td>
+
+                <td class="alert alert-info border">
+                    <div align="center">
+                        <img class="img-thumbnail" width="1920" height="600"  id="image1" />
+                    </div>
+                    <input type="file" name="t2" onchange="readURL3(this,'#image1');" />
+                    <h>&nbsp</h>
+                    <h5 style="text-align:left"><strong>Описание</strong></h5>
+                    <h>&nbsp</h>
+                    <input class="col-md-12" asp-for="Title_2"  type="text" />
+                    <span asp-validation-for="Title_2"></span>
+                </td>
+                <td class="alert alert-info border">
+                    <div align="center">
+                        <img class="img-thumbnail"  width="1920" height="600" id="image2" />
+                    </div>
+                    <input type="file" name="t3" onchange="readURL3(this,'#image2');" />
+                    <h>&nbsp</h>
+                    <h5 style="text-align:left"><strong>Описание</strong></h5>
+                    <h>&nbsp</h>
+                    <input class="col-md-12" asp-for="Title_3"  type="text" />
+                    <span asp-validation-for="Title_3"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <a data-toggle="collapse" aria-expanded="true" data-target="#hide2">
+        <h3><strong>Блок характеристик<b class="caret"></b></strong></h3>
+    </a>
+    <div id="hide2" class="panel-collapse collapse row">
+        <table class="table">
+            <tr>
+                <th scope="row">Включить</th>
+                <td>
+                   <input type="checkbox" asp-for="CharacteristicsBlock" />
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4 alert alert-info border">
+                    <div align="center">
+                        <img class="img-circle person" width="200" height="200" id="img">
+                    </div>
+                    <input class="col-md-12" name="c1" type="file"  onchange="readURL1(this,'#img');" />
+                    <h>&nbsp</h>
+                    <h5 class="col-md-12" style="text-align:left"><strong>Описание</strong></h5>
+                    <h>&nbsp</h>
+                    <input class="col-md-12" asp-for="CircleText_1" type="text" />
+                    <span asp-validation-for="CircleText_1"></span>
+                </td>
+
+                <td class="col-md-4 alert alert-info border">
+                    <div align="center">
+                        <img class="img-circle person" width="200" height="200" id="img1" />
+                    </div>
+                    <input class="col-md-12" name="c2" type="file" onchange="readURL1(this,'#img1');" />
+                    <h>&nbsp</h>
+                    <h5 class="col-md-12" style="text-align:left"><strong>Описание</strong></h5>
+                    <h>&nbsp</h>
+                    <input class="col-md-12" asp-for="CircleText_2" type="text" />
+                    <span asp-validation-for="CircleText_2"></span>
+                </td>
+
+                <td class="col-md-4 alert alert-info border">
+                    <div align="center">
+                        <img class="img-circle person" width="200" height="200" id="img2" />
+                    </div>
+                    <input class="col-md-12" name="c3" type="file" onchange="readURL1(this,'#img2');" />
+                    <h>&nbsp</h>
+                    <h5 class="col-md-12" style="text-align:left"><strong>Описание</strong></h5>
+                    <h>&nbsp</h>
+                    <input class="col-md-12" asp-for="CircleText_3" type="text" />
+                    <span asp-validation-for="CircleText_3"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <a data-toggle="collapse" aria-expanded="true" data-target="#hide3">
+        <h3><strong>Блок акций<b class="caret"></b></strong></h3>
+    </a>
+    <div id="hide3" class="panel-collapse collapse row">
+        <table class="table">
+            <tr>
+                <th scope="row">Включить</th>
+                <td>
+                   <input type="checkbox" asp-for="StockBlock" />
+                </td>
+            </tr>
+            <tr>
+                <td class="alert alert-info border"> 
+                    <select class="col-md-12"  asp-for="Stock_1" onchange="Photo(this,'#stockImg1')" name="stock1">
+                        @foreach(var el in ViewBag.Stock)
+                        {
+                            <option data-test="@el.Photo" value="@el.StockID"> @el.StockName </option>         
+                        }
+                    </select>
+                    <div align="center">
+                        <img id="stockImg1" src="" width="255" height="255"/>
+                    </div>
+                </td>
+                <td class="alert alert-info border">
+                    <select class="col-md-12" asp-for="Stock_2" onchange="Test(this,'#stockImg2')" name="stock2">
+                    @foreach(var el in ViewBag.Stock)
+                        {
+                            <option data-test="@el.Photo" value="@el.StockID" >@el.StockName</option> 
+                        }
+                    </select>
+                    <div align="center">
+                        <img id="stockImg2" src="" width="255" height="255"/>
+                    </div>
+                </td>
+                <td class="alert alert-info border">
+                    <select class="col-md-12" asp-for="Stock_3" onchange="Test(this,'#stockImg3')" name="stock3">
+                    @foreach(var el in ViewBag.Stock)
+                        {
+                            <option data-test="@el.Photo" value="@el.StockID" >@el.StockName</option>
+                        }
+                    </select>
+                    <div align="center">
+                        <img id="stockImg3" src="" width="255" height="255"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <a data-toggle="collapse" aria-expanded="true" data-target="#hide4">
+        <h3><strong>Блок видов мебели<b class="caret"></b></strong></h3>
+    </a>
+    <div id="hide4" class="panel-collapse collapse row">
+        <table class="table">
+            <tr>
+                <th class="col-md-4" scope="row">Включить</th>
+                <td>
+                   <input type="checkbox" asp-for="KindBlock" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <a data-toggle="collapse" aria-expanded="true" data-target="#hide5">
+        <h3><strong>Блок "Наш выбор"<b class="caret"></b></strong></h3>
+    </a>
+    <div id="hide5" class="panel-collapse collapse row">
+        <table class="table">
+            <tr>
+                <th class="col-md-4" scope="row">Включить</th>
+                <td>
+                   <input type="checkbox" asp-for="OurChoiceBlock" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <input class="btn btn-success" type="submit" value="Добавить">
+    <br><br>
+</form>
+
+<script>
+    function Photo(test,a){
+    var url = $(test).find(':selected').data('test');
+    $(a).attr('src', url);}
+</script>
+
+
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

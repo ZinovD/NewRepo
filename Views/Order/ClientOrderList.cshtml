@@ -1,0 +1,91 @@
+﻿@model OrderListViewModel
+<style>
+    .alert-secondary {
+    color: #383d41;
+    background-color: #f1f1f1;
+    border-color: #d6d8db;
+    }
+    .alert-white {
+    color: #383d41;
+    background-color: white;
+    border-color: #d6d8db;
+    margin-bottom: 0.5rem;
+    padding: 1px 1.25rem;
+    }
+    .col-md-1
+    {
+        width:5%;
+    }
+
+</style>
+
+<h3><strong>Заказы</strong></h3>
+<div class="col-md-12">
+    @{
+        foreach (var el in Model.allOrders.OrderByDescending(i=>i.OrderTime))
+        {
+            <div class="row col-md-5 alert alert-secondary">
+                @{
+                    if (el.OrderDetail.Count>1)
+                    {
+                        int count = el.OrderDetail.Count - 1;
+                        <h5><strong> @el.OrderDetail.ToList().First().Furniture.Name + еще @count...</strong></h5>
+                    }
+                    else
+                    {
+                        <h5><strong> @el.OrderDetail.ToList().First().Furniture.Name</strong></h5>
+                    }
+                }
+                <div class="alert alert-white">
+                    Дата заказа: @el.OrderTime.ToString("MM/dd/yyyy")
+                </div>
+                <div class="alert alert-white">
+                    @{
+                        if (!el.Status) 
+                        {
+                            <p>Статус: Ожидается доставка</p>
+                        }
+                        else
+                        {
+                            <p>Статус: Завершён</p>
+                        }
+                    }
+                </div>
+                <a class="btn alert-info" asp-route-id="@el.OrderID" asp-controller="Order" asp-action="OrderDetail">Подробнее</a>
+                @{
+                    if (!el.Status)
+                    {
+                        <a class="btn alert-success" asp-route-id="@el.OrderID" asp-controller="Order" asp-action="Confirmation">Подтвердить получение</a>
+                    }
+                }
+            </div>
+            <div class="col-md-1"></div>
+        }
+    }
+</div>
+
+
+<style>
+    table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 14px;
+border-collapse: collapse;
+text-align: center;
+}
+th, td:first-child {
+background: #6699ff;
+color: white;
+padding: 10px 20px;
+}
+th, td {
+border-style: solid;
+border-width: 0 1px 1px 0;
+border-color: white;
+}
+td {
+background: #D8E6F3;
+}
+th:first-child, td:first-child {
+text-align: left;
+}
+</style>

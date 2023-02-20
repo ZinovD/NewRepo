@@ -1,0 +1,25 @@
+﻿<form method="post" asp-action="Update" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Добавление цвета</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Название цвета:</dt>
+                <dd>
+                    <input class="form-control" type="text" name="colorName" />
+                </dd>
+                <br/>
+                <dt>Цвет:</dt>
+                <dd>
+                    <input  type="color" name="color" /><br />
+                </dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Готово</button>
+            <button class="btn btn-secondary" asp-controller="Color" asp-action="ColorList">Закрыть</button>
+        </div>
+    </div>
+</form>

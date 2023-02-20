@@ -1,0 +1,73 @@
+﻿@model Order
+<div class="validation validation-summary-valid" data-valmsg-summary="true">
+    <ul>
+        <li style="display:none"></li>
+    </ul>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="tab" role="tabpanel">
+                <br>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Оформление заказа</a></li>
+                </ul>
+                <div class="tab-content tabs">
+                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                        <form class="form-horizontal" asp-antiforgery="true" asp-action="Create" method="post">
+                            <div class="form-group">
+                                <label asp-for="Surname"></label>
+                                <div>
+                                    <input asp-for="Surname" value="@ViewBag.User.SurName" class="form-control" />
+                                    <span asp-validation-for="Surname" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <div>
+                                    <input asp-for="Name" value="@ViewBag.User.Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MiddleName"></label>
+                                <div>
+                                    <input asp-for="MiddleName" value="@ViewBag.User.MiddleName" class="form-control" />
+                                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address"></label>
+                                <div>
+                                    <input asp-for="Address" value="@ViewBag.User.Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <div>
+                                    <input asp-for="Email" value="@ViewBag.User.Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Phone"></label>
+                                <div>
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <input class="btn btn-success" type="submit" value="Оплатить">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-md-offset-3 col-md-6 -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

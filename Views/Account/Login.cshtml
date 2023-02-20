@@ -1,0 +1,39 @@
+﻿@model FurnitureStore.ViewModels.LoginViewModel
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="tab" role="tabpanel">
+                    <br>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Авторизация</a></li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                            <form class="form-horizontal" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="email" class="form-control" asp-for="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Пароль</label>
+                                    <input type="password" class="form-control" asp-for="Password">
+                                </div>
+                                <div class="form-group">
+                                    <div class="main-checkbox">
+                                        <input value="None" id="checkbox1" name="check" asp-for="RememberMe" type="checkbox">
+                                        <label for="checkbox1"></label>
+                                    </div>
+                                    <span class="text">Запомнить меня</span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default">Вход</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

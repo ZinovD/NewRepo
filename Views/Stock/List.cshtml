@@ -1,0 +1,48 @@
+﻿@using FurnitureStore.ViewModels
+@model StockListViewModel
+
+
+ <style>
+     .border 
+     {
+       border-width:2px;
+       border-color:white;
+       color:white;
+       font-weight:bold;
+       background:#DC143C;
+     }
+ </style>
+<form >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                @foreach(var el in Model.allStock)
+                {
+                    if (DateTime.Now < el.StockEndTime && DateTime.Now >= el.StockStartTime)
+                    {
+                        <div class="col-md-3 alert alert-info border">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="img-thumbnail" src="@el.Photo" />
+                                    <h3>@el.StockName</h3><br>
+                                    <h5>Дата начала акции: @el.StockStartTime</h5>
+                                    <h5>Акция действует до:  @el.StockEndTime</h5>
+                                </div>                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @{
+                                        if (el.StockName != "Нет")
+                                        {
+                                            <a class="btn btn-info col-lg-12" asp-route-StockID="@el.StockID" asp-controller="Stock" asp-action="StockPage">Просмотр</a>
+                                        }
+                                    }
+                                </div>
+                            </div>          
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>

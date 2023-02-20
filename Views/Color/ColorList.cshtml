@@ -1,0 +1,39 @@
+﻿<body>
+    <style>
+        .colortext {
+            background-color: #ffe; /* Цвет фона */
+            color: Black; /* Цвет текста */
+            border: none;
+            width: 6em;
+            text-align: center;
+        }
+    </style>
+
+    <form method="post" action="/Color/Update" enctype="multipart/form-data">
+        <h3>Цвета</h3>
+        <table class="table table-hover">
+            @{
+                foreach (var el in Model)
+                {
+                    <tr> 
+                        <td>
+                        </td>
+                        <td>
+                            <input name="colorName" type="text" style="text-align: center; font-weight: bolder; font-size:medium" value="@el.ColorName" class="form-control col-lg-12" readonly>
+                        </td>
+                        <td>
+                            <input name="color" type="color" style="text-align: center; font-weight: bolder;" value="@el.Color" class="col-lg-12" disabled>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary col-lg-12" asp-route-colorID="@el.ColorID" asp-controller="Color" asp-action="Edit">Изменить</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger col-lg-12" asp-route-colorID="@el.ColorID" asp-controller="Color" asp-action="Delete">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </form>
+    <a class="btn btn-info col-lg-12" asp-controller="Color" asp-action="CreateList">Добавить</a>
+</body>

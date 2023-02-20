@@ -1,0 +1,223 @@
+﻿@model OrderListViewModel
+
+
+ <style>    
+        .container {
+            width: 100%;
+            padding-right: 10px;
+            padding-left: 10px;
+            margin-right: auto;
+            margin-left: auto;
+        }  
+        .test{
+            border:1px;
+            border-color:white;
+        }
+        table {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            font-size: 14px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td:first-child {
+            background: #6699ff;
+            color: white;
+            padding: 10px 20px;
+        }
+        th, td {
+            border-style: solid;
+            border-width: 0 1px 1px 0;
+            border-color: black;
+        }
+        td {
+            background: #D8E6F3;
+        }
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+</style>
+
+<form method="post" enctype="multipart/form-data">
+        <div class="col-md-12">
+                    <label>Всего заказов: @Model.allOrders.Count()</label>
+                    @{
+                        int sum = 0;
+                        foreach (var el in Model.allOrders)
+                        {
+                            foreach(var item in el.OrderDetail)
+                            {
+                                sum += item.Price;
+                            }
+                        }
+                    }
+                    <br>
+                    <label>Общая сумма заказов: @sum ₽</label>
+                    @{
+                        string test = "";
+                        foreach(var order in Model.allOrders)
+                        {
+                            test += order.OrderID.ToString() + "_";
+                        }
+                    }                
+        </div>
+        <br>
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn alert-info col-md-12" asp-controller="Order" asp-action="Export" asp-route-test="@test">Экспорт в Excel</a>
+                <br><br>
+                <button class="btn btn-success col-md-12" type="submit">Фильтрация</button><br/><br/>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide0">Номер заказа</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide0">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <tbody>
+                                @{
+                                    <tr>
+                                        <td scope="row" style="background-color:white">
+                                            <input class="col-md-12" style="color:black" type="number" min="0" name="numberFilter" id="numberFilter">
+                                        </td>
+                                    </tr>  
+                                }
+                                <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide1">Дата заказа</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide1">
+                    <div class="col-md-9">
+                        <table class="table table-bordered">
+                            <tbody>
+                                @{
+
+                                    <tr>
+                                        <td scope="row" style="background-color:white">
+                                            <label  style="color:black" for="dateFilter">С &nbsp</label>
+                                            <input  style="color:black" type="date" name="dateFilter" id="dateFilter">
+                                        </td>
+                                    </tr>  
+                                    <tr>
+                                        <td scope="row" style="background-color:white">
+                                            <label style="color:black" for="dateFilter2">По</label>
+                                            <input style="color:black" type="date" name="dateFilter2" id="dateFilter2">
+                                        </td>
+                                    </tr>
+                                }
+                                <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide2">ФИО</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide2">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-bordered">
+                            <tbody class="form-check">
+                                <tr>
+                                    <td scope="row" style="background-color:white">
+                                        <input style="color:black" class="form-check-input col-md-12" type="text" name="fullNameFilter" id="fullNameFilter">
+                                    </td>
+                                </tr>
+                                <tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary col-md-12" data-toggle="collapse"  data-target="#hide3">Статус заказа</a>
+                <br><br>
+                <div class="panel-collapse collapse in row" id="hide3">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-bordered">
+                            <tbody class="form-check">
+                                <tr>
+                                    <td scope="row" style="background-color: white">
+                                        <input class="form-check-input" type="radio" name="statusFilter" value="Доставка" id="statusFilter">
+                                        <label style="color:black" class="form-check-label" for="statusFilter">Доставка</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" style="background-color: white">
+                                        <input class="form-check-input" type="radio" name="statusFilter" value="Завершен" id="statusFilter">
+                                        <label style="color:black" class="form-check-label" for="statusFilter2">Завершен</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" style="background-color: white">
+                                        <input class="form-check-input" type="radio" name="statusFilter" value="Все" id="statusFilter">
+                                        <label style="color:black" class="form-check-label" for="statusFilter2">Все</label>
+                                    </td>
+                                </tr>
+                                <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                @{
+                    foreach (var el in Model.allOrders)
+                    {
+                        <div class="row">
+                            <div style=" border: 1px solid #808080;" class="border-secondary col-md-1"><h6>@el.OrderID</h6></div>
+                            <div style=" border: 1px solid #808080;" class="col-md-2"><h6>@el.Surname</h6></div>
+                            <div style=" border: 1px solid #808080;" class="col-md-2"><h6>@el.Name</h6></div>
+                            <div style=" border: 1px solid #808080;" class="col-md-2"><h6>@el.MiddleName</h6></div>
+                            <div style=" border: 1px solid #808080;" class="col-md-1"><h6>@el.OrderTime.ToString("MM/dd/yyyy")</h6></div>
+                            @{
+                                if (!el.Status)
+                                {
+                                    <div style=" border: 1px solid #808080;" class="col-md-1"><h6>Доставка</h6></div>
+                                }
+                                else
+                                {
+                                    <div style=" border: 1px solid #808080;" class="col-md-1"><h6>Завершён</h6></div>
+                                }
+                            }
+                            <a class=" col-md-1 btn alert-info" data-toggle="collapse" data-target="#@el.OrderID.ToString()" aria-expanded="false">Детали</a> 
+                            <a class=" col-md-1 btn alert-info"  asp-route-id="@el.OrderID" asp-controller="Order" asp-action="OrderDetail">Открыть</a> 
+                            <a class=" col-md-1 btn alert-danger" asp-route-OrderID="@el.OrderID" asp-controller="Order" asp-action="Delete">Удалить</a>
+                        </div> 
+                        <div class="collapse row" id="@el.OrderID.ToString()">
+                            @{
+                                int i = 1;
+                            }
+                            <table class="col-md-8">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-1">#</th>
+                                        <th class="col-md-2">Название</th>
+                                        <th class="col-md-1">Вид</th>
+                                        <th class="col-md-1">Тип</th>
+                                        <th class="col-md-2">Цвет</th>
+                                        <th class="col-md-2">Цена</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var detail in el.OrderDetail)
+                                {
+                                    <tr>
+                                        <td align="left" class="col-md-1">@i</td>
+                                        <td align="left" class="col-md-2">@detail.Furniture.Name</td>
+                                        <td align="left" class="col-md-1">@detail.Furniture.FurnitureKind.Kind</td>
+                                        <td align="left" class="col-md-1">@detail.Furniture.FurnitureType.Type</td>
+                                        <td align="left" class="col-md-2">@detail.Furniture.FurnitureColor.ColorName</td>
+                                        <td align="left" class="col-md-2">@detail.Price ₽</td> 
+                                    </tr>
+                                    i++;
+                                }
+                                <tr>
+                                    <td style="background:white; border: 1px solid white;">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>

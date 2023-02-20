@@ -1,0 +1,175 @@
+﻿@model FurnitureListViewModel
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<style>
+        .container {
+            width: 90%;
+            padding-right: 10px;
+            padding-left: 10px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+</style>
+<div class="container" >
+    <div class="col-md-10">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="max-height:20em">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" style="max-height:20em">
+                    <div class="item active">
+                        <img src="@Model.allFurniture.FirstOrDefault().Photo1" class="center-block"  style="max-height:20em">
+                    </div>
+
+                    <div class="item">
+                        <img src="@Model.allFurniture.FirstOrDefault().Photo2" class="center-block"  style="max-height:20em">
+                    </div>
+
+                    <div class="item">
+                        <img src="@Model.allFurniture.FirstOrDefault().Photo3" class="center-block"  style="max-height:20em">
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        <div class="center-img">
+            @{
+                foreach (var furniture in Model.allFurniture)
+                {
+                    <h4><strong >Основные характеристики:</strong></h4>
+                    <table class="table-bordered">
+                        <tr>
+                            <td class="col-md-3">Вид</td>
+                            <td class="col-md-3">@furniture.FurnitureKind.Kind</td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-3">Тип</td>
+                            <td class="col-md-3">@furniture.FurnitureType.Type</td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-3">Основной цвет</td>
+                            <td class="col-md-3">@furniture.FurnitureColor.ColorName</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3">Материал</td>
+                            <td class="col-md-3">@furniture.Material</td>
+                        </tr>
+                   </table>
+                   <br/>
+                   <h4><strong>Габариты:</strong></h4>
+                   <table class="table-bordered">
+                        <tr>
+                            <td class="col-md-3">Ширина</td>
+                            <td class="col-md-3">@furniture.Width</td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-3">Высота</td>
+                            <td class="col-md-3">@furniture.Height</td>
+                        </tr>
+
+                        <tr>
+                            <td class="col-md-3">Длинна</td>
+                            <td class="col-md-3">@furniture.Length</td>
+                        </tr>
+                   </table>
+                   <br/>
+                   <h4><strong>Описание:</strong></h4>
+                   <p class="text-break">@furniture.LongDesc</p> 
+                   <br/>
+                   <a data-toggle="collapse" aria-expanded="true" data-target="#hide1">
+                        <h4><strong>Комментарии<b class="caret"></b></strong></h4>
+                   </a>
+                   <div id="hide1" class="panel-collapse collapse in row">
+                       <table class="col-md-12 table-bordered">
+                            @foreach(var el in furniture.Comments.OrderByDescending(i=>i.Date))
+                            {
+                                <tr>
+                                    <td align="center" class="col-md-2">
+                                        <img src="@el.Avatar" class="col-md-12">
+                                        @el.UserName <br/>
+                                        @el.Date
+                                    </td>
+                                    <td class="col-md-3"><label>@el.Comment</label></td>
+                                    <td class="col-md-2">
+                                        <a data-fancybox="gallery" href="@el.Photo">
+                                            <img class="col-md-12" src="@el.Photo">
+                                        </a>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <a data-fancybox="gallery" href="@el.Photo2">
+                                            <img class="col-md-12" src="@el.Photo2">
+                                        </a>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <a data-fancybox="gallery" href="@el.Photo3">
+                                            <img class="col-md-12" src="@el.Photo3">
+                                        </a>
+                                    </td>
+                                    @{
+                                        if((User.Identity.Name==el.IdentityUserName)||(User.IsInRole("Администратор")) ||( User.IsInRole("Модератор")))
+                                        {
+                                          <td class="col-md-1">
+                                             <a class="btn btn-warning col-lg-12" asp-route-CommentID="@el.CommentID" asp-route-FurnitureID="@el.FurnitureID" asp-controller="Furniture" asp-action="DeleteComment">Удалить</a>
+                                          </td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    </div><br/>
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-success" asp-route-FurnitureID="@furniture.FurnitureID" asp-controller="Furniture" asp-action="CreateComment">Добавить комментарий</a>
+                    }
+                    <br/><br/>
+                }
+            }
+        </div>  
+    </div>
+    <div class="col-md-2">
+        @{
+            foreach (var el in Model.allFurniture)
+            {
+                <h3>@el.Name</h3>
+                 if(el.Stock.StockName!="Нет")
+                 {
+                    <h3>Акция: @el.Stock.StockName</h3>
+                    <h3><s>@el.Price ₽ </s>  @el.StockPrice ₽</h3>                            
+                 }
+                 else
+                 {
+                    <h3>@el.Price ₽</h3>
+                 }
+                 bool k = false;
+                 foreach (var i in ViewBag.Items)
+                 {
+                    if (i == el.FurnitureID)
+                    {
+                        k = true;
+                    }
+                 }
+                 if (k == true)
+                 {
+                     <button class="btn btn-light col-lg-12">В корзине</button>
+                 }
+                 else
+                 {
+                     <a class="btn btn-info col-lg-12" asp-route-Id="@el.FurnitureID" asp-controller="ShopCart" asp-action="addToCart">В корзину</a>
+                 }
+                 <a class="btn btn-info col-lg-12"  asp-controller="Home" asp-action="Index">Назад</a>
+             }
+          }
+    </div>
+</div>

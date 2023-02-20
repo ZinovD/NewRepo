@@ -1,0 +1,12 @@
+﻿@model Order
+<form method="post" asp-action="ClientOrderList" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Заказ успешно оформлен</h4>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>

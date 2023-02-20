@@ -1,0 +1,68 @@
+﻿@using FurnitureStore.Data.Models
+@model Stock
+
+
+ <h5 style="color:red;">@ViewData["Error"]</h5>
+ <h2>Изменение акции</h2>
+ <form method="post" action="/Stock/Edit" enctype="multipart/form-data">
+     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     <table class="table">
+        <tbody>
+            <tr>
+                <img src="@Model.Photo" class="img-thumbnail" width="350" height="300" id="image" />
+                <input type="file" name="pic" onchange="readURL(this,'#image');" />
+            </tr>
+             <tr>
+                <th scope="row">ID</th>
+                <td>
+                    <input readonly type="number" value="@Model.StockID" asp-for="StockID" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Название</th>
+                <td>
+                    <input type="text" value="@Model.StockName" asp-for="StockName" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Размер скидки</th>
+                <td>
+                    <input value="@Model.StockSize" type="number" min="1" max="99" step="1" asp-for="StockSize" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Короткое описание</th>
+                <td>
+                    <input value="@Model.ShortDesc" type="text" asp-for="ShortDesc" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Описание</th>
+                <td>
+                    <input value="@Model.LongDesc" type="text" asp-for="LongDesc" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Дата начала акции</th>
+                <td>
+                    <input min="@DateTime.Today"  type="date" asp-for="StockStartTime" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Дата окончания акции</th>
+                <td>
+                    <input min="@DateTime.Today" type="date" asp-for="StockEndTime" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">На главную</th>
+                <td>
+                    <input value="@Model.IsFavorite" type="checkbox" asp-for="IsFavorite" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input class="btn btn-success" type="submit" value="Сохранить"><br><br>
+    <script src="~/js/site.js"></script>
+</form>

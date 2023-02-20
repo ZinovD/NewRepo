@@ -1,0 +1,17 @@
+﻿<form method="post" asp-controller="ShopCart" asp-action="Index" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Необходимо авторизоваться</h4>
+        </div>
+        <div class="modal-body">
+            <a class="btn btn-info" asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+            <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+    </div>
+</form>
+
+                            
